@@ -1,5 +1,5 @@
 Janne Chatbot Backend - HACKATON
-========
+================================
 
 this project will show you how to build basic API chatbot using `NLTK` and `python`.
 
@@ -16,17 +16,10 @@ Features
 
 Installation
 ------------
-
 Install $project by running:
 
-    wget https://bottlepy.org/bottle.py
-    
-    sudo pip install bottle             
-    
-    sudo easy_install bottle           
-    
-    sudo apt-get install python-bottle
+    make all
 
-    sudo pip install -U nltk
-    
-    sudo pip install -U numpy
+and
+
+    source venv/bin/activate

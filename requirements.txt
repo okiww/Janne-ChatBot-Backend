@@ -2,3 +2,5 @@ bottle
 click
 beaker
 jinja2
+nltk
+numpy

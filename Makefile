@@ -1,5 +1,5 @@
 #!/bin/bash
-VENVBIN = venv/bin
+VENVBIN = ./venv/bin
 PYTHON = $(VENVBIN)/python
 PIP = $(VENVBIN)/pip
 
