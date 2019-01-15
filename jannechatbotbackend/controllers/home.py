@@ -4,6 +4,7 @@ from bottle import post, get, put, delete, response, request
 
 import os
 import sys
+import json
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from modules.chatbot.chatbot import intro
@@ -15,17 +16,14 @@ home_app = Bottle()
 def index():
     return intro()
 
-@home_app.route('/store')
-def index():
-    return store()
-
 @home_app.route('/post', 'POST')
 def home():
     postdata = request.body.read()
-    print postdata #this goes to log file only, not to client
-    name = postdata.name
-    surname = request.forms.get("surname")
-    return "Hi {name} {surname}".format(name=name, surname=surname)
+    jsondata = json.loads(postdata)
+    
+    message = jsondata.get('message')
+    typeMessage = jsondata.get('type')
+    return store(message, typeMessage)
 
 @home_app.route('/hello/<name>')
 def index(name):
