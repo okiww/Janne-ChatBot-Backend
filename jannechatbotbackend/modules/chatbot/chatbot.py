@@ -4,6 +4,7 @@ from bottle import response
 from json import dumps
 from common.dictionary.dictionary import reflections
 from common.dictionary.dictionary import psychobabble
+import datetime
 
 optionMessage = [
   {"id": 1, "message": "Cari Property Di Bandung", "sender": "BOT"},
@@ -50,20 +51,22 @@ def main():
             break
 
 def intro():
-    response.content_type = 'application/json'
-    return dumps(introMessage)
+    response.content_type = 'application/json'      
+    data = {"data": introMessage, "status": 200, "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+    return dumps(data)
 
 def store(message, typeMessage):
     while True:
       analyzeMessage = analyze(message)
-      print analyzeMessage
-      # if typeMessage == "option":
-      #   validateMessage = getDataFromElasticSearch(analyzeMessage)
-      # else:
-      validateMessage = validate(analyzeMessage)
+      if typeMessage == "option":
+        validateMessage = getDataFromElasticSearch(analyzeMessage)
+      else:
+        validateMessage = validate(analyzeMessage)
 
+      data = {"data": validateMessage, "status": 200, "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
       response.content_type = 'application/json' 
-      return dumps(validateMessage)
+      response.status = 200
+      return dumps(data)
 
 def validate(message):
   rv = { "id": 1, "message": message, "sender": "BOT" }

@@ -18,7 +18,9 @@ reflections = {
 psychobabble = [
     [r'(Cari|cari|mencari|Mencari) (.*)',
      ["Buka 99.co aja {0}?"]],
-
+    
+    [r'(.*) (Dijual|dijual) (.*)',
+     ["Buka 99.co aja {0}?"]],
     [r'I need (.*)',
      ["Why do you need {0}?",
       "Would it really help you to get {0}?",
