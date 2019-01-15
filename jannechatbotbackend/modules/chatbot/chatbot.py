@@ -23,6 +23,7 @@ introMessage = [
   },
 ]
 
+# reflect depends on reflections
 def reflect(fragment):
     tokens = fragment.lower().split()
     for i, token in enumerate(tokens):
@@ -30,35 +31,26 @@ def reflect(fragment):
             tokens[i] = reflections[token]
     return ' '.join(tokens)
  
- 
+# analyze is for get response from dictionary 
 def analyze(statement):
-    print statement
     for pattern, responses in psychobabble:
         match = re.match(pattern, statement.rstrip(".!"))
         if match:
             response = random.choice(responses)
             return response.format(*[reflect(g) for g in match.groups()])
- 
- 
-def main():
-    print "Hello. How are you feeling today?"
-    while True:
-        statement = raw_input("> ")
-        print "Hello. How are you feeling today?"
-        print analyze(statement)
- 
-        if statement == "quit":
-            break
 
+# intro is for introduce janne first message
 def intro():
     response.content_type = 'application/json'      
     data = {"data": introMessage, "status": 200, "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
     return dumps(data)
 
+# store is for storing message
 def store(message, typeMessage):
     while True:
       analyzeMessage = analyze(message)
       if typeMessage == "option":
+        # get data from elasticsearch
         validateMessage = getDataFromElasticSearch(analyzeMessage)
       else:
         validateMessage = validate(analyzeMessage)
@@ -68,6 +60,7 @@ def store(message, typeMessage):
       response.status = 200
       return dumps(data)
 
+# validate is for validation response
 def validate(message):
   rv = { "id": 1, "message": message, "sender": "BOT" }
 
@@ -81,5 +74,6 @@ def validate(message):
   else:
     return rv
 
+# getDataFromElasticSearch retrive data from elasticsearch
 def getDataFromElasticSearch(message): 
   return message
