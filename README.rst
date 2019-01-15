@@ -1,41 +1,32 @@
-Template
+Janne Chatbot Backend - HACKATON
 ========
 
-$project will solve your problem of where to start with documentation,
-by providing a basic explanation of how to do it easily.
+this project will show you how to build basic API chatbot using `NLTK` and `python`.
 
 Look how easy it is to use:
-
-    import project
-    # Get your stuff done
-    project.do_stuff()
+    
+       python manage.py runserver
 
 Features
 --------
 
-- Be awesome
-- Make things faster
+- API Chatbot
+- Show Listing Property
+- Integrate with elasticsearch
 
 Installation
 ------------
 
 Install $project by running:
 
-    install project
+    wget https://bottlepy.org/bottle.py
+    
+    sudo pip install bottle             
+    
+    sudo easy_install bottle           
+    
+    sudo apt-get install python-bottle
 
-Contribute
-----------
-
-- Issue Tracker: github.com/$project/$project/issues
-- Source Code: github.com/$project/$project
-
-Support
--------
-
-If you are having issues, please let us know.
-We have a mailing list located at: project@google-groups.com
-
-License
--------
-
-The project is licensed under the BSD license.
+    sudo pip install -U nltk
+    
+    sudo pip install -U numpy
