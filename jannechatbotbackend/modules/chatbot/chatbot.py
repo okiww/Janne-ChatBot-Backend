@@ -6,18 +6,19 @@ from common.dictionary.dictionary import reflections
 from common.dictionary.dictionary import psychobabble
 
 optionMessage = [
-  {"id": 1, "message": "Cari Property Di Bandung"},
-  {"id": 2, "message": "Saya sedang cari rumah"},
-  {"id": 3, "message": "i'm feeling lucky!"}
+  {"id": 1, "message": "Cari Property Di Bandung", "sender": "BOT"},
+  {"id": 2, "message": "Saya sedang cari rumah", "sender": "BOT"},
+  {"id": 3, "message": "i'm feeling lucky!", "sender": "BOT"}
 ]
 introMessage = [
-  { "id": 1, "message": "Janne the TeenBoT", "type": "message" }, 
-  { "id": 2, "message": "hi!! who r u??!", "type": "message"},
+  { "id": 1, "message": "Janne the TeenBoT", "type": "message", "sender": "BOT" }, 
+  { "id": 2, "message": "hi!! who r u??!", "type": "message", "sender": "BOT"},
   { 
     "id": 3, 
     "data": optionMessage,
     "type": "options",
-    "message": "What do you want ?"
+    "message": "What do you want ?",
+    "sender": "BOT"
   },
 ]
 
@@ -30,6 +31,7 @@ def reflect(fragment):
  
  
 def analyze(statement):
+    print statement
     for pattern, responses in psychobabble:
         match = re.match(pattern, statement.rstrip(".!"))
         if match:
@@ -51,22 +53,30 @@ def intro():
     response.content_type = 'application/json'
     return dumps(introMessage)
 
-def store(message):
+def store(message, typeMessage):
     while True:
       analyzeMessage = analyze(message)
+      print analyzeMessage
+      # if typeMessage == "option":
+      #   validateMessage = getDataFromElasticSearch(analyzeMessage)
+      # else:
       validateMessage = validate(analyzeMessage)
-      
+
       response.content_type = 'application/json' 
       return dumps(validateMessage)
 
 def validate(message):
-  rv = { "id": 1, "message": message }
+  rv = { "id": 1, "message": message, "sender": "BOT" }
+
   options = [
     rv,
-    {"id": 2, "data": optionMessage, "type": "options", "message": "What do you want ?"}
+    {"id": 2, "data": optionMessage, "type": "options", "message": "What do you want ?", "sender": "BOT"}
   ]
 
   if message == "I dont understand what you said":
     return options
   else:
     return rv
+
+def getDataFromElasticSearch(message): 
+  return message
