@@ -22,8 +22,7 @@ def home():
     jsondata = json.loads(postdata)
     
     message = jsondata.get('message')
-    typeMessage = jsondata.get('type')
-    return store(message, typeMessage)
+    return store(message)
 
 @home_app.route('/hello/<name>')
 def index(name):
