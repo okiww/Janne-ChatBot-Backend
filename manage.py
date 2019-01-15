@@ -31,17 +31,21 @@ def assets(path):
 def cmds():
     pass
 
+if os.environ.get('APP_LOCATION') == 'heroku':
+    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+else:
+    run(host='localhost', port=8080, debug=True)
 
-@cmds.command()
-@click.option('--port', default=os.environ.get('PORT', 8080), type=int,
-              help=u'Set application server port!')
-@click.option('--ip', default='0.0.0.0', type=str,
-              help=u'Set application server ip!')
-@click.option('--debug', default=False,
-              help=u'Set application server debug!')
-def runserver(port, ip, debug):
-    click.echo('Start server at: {}:{}'.format(ip, port))
-    run(app=app, host=ip, port=port, debug=debug, reloader=debug)
+# @cmds.command()
+# @click.option('--port', default=os.environ.get('PORT', 8080), type=int,
+#               help=u'Set application server port!')
+# @click.option('--ip', default='0.0.0.0', type=str,
+#               help=u'Set application server ip!')
+# @click.option('--debug', default=False,
+#               help=u'Set application server debug!')
+# def runserver(port, ip, debug):
+#     click.echo('Start server at: {}:{}'.format(ip, port))
+#     run(app=app, host=ip, port=port, debug=debug, reloader=debug)
 
 
 @cmds.command()
