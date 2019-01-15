@@ -16,7 +16,8 @@ introMessage = [
   { 
     "id": 3, 
     "data": optionMessage,
-    "type": "options"
+    "type": "options",
+    "message": "What do you want ?"
   },
 ]
 
@@ -62,7 +63,7 @@ def validate(message):
   rv = { "id": 1, "message": message }
   options = [
     rv,
-    {"id": 2, "data": optionMessage, "type": "options"}
+    {"id": 2, "data": optionMessage, "type": "options", "message": "What do you want ?"}
   ]
 
   if message == "I dont understand what you said":
