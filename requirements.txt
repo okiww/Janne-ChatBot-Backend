@@ -11,7 +11,6 @@ bottle-boilerplate==0.3
 certifi==2018.11.29
 chardet==3.0.4
 chatbotAI==0.2.0.5
-cliapp==1.20170827
 Click==7.0
 cmdtest==0.32
 colorama==0.3.9
