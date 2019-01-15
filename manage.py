@@ -49,8 +49,8 @@ def test():
     import unittest
     loader = unittest.TestLoader()
     tests = loader.discover('tests')
-    testRunner = unittest.runner.TextTestRunner()
-    testRunner.run(tests)
+    test_runner = unittest.runner.TextTestRunner()
+    test_runner.run(tests)
 
 
 if __name__ == "__main__":
