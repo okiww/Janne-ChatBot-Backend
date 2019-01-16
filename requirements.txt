@@ -1,4 +1,5 @@
+nltk==3.4
+Click==7.0
 Beaker==1.10.0
 bottle==0.12.16
-Click==7.0
-nltk==3.4
+elasticsearch==2.1.0

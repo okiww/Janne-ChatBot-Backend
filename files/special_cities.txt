@@ -1,0 +1,40 @@
+bengkulu
+bengkulu selatan
+bengkulu tengah
+bengkulu utara
+jakarta barat
+jakarta pusat
+jakarta selatan
+jakarta timur
+jakarta utara
+gorontalo
+gorontalo utara
+muaro jambi
+bangka
+bangka barat
+bangka selatan
+bangka tengah
+belitung
+belitung timur
+bandar lampung
+lampung barat
+lampung selatan
+lampung tengah
+lampung timur
+lampung utara
+maluku barat daya
+maluku tengah
+maluku tenggara
+maluku tenggara barat
+banda aceh
+aceh barat
+aceh barat daya
+aceh besar
+aceh jaya
+aceh selatan
+aceh singkil
+aceh tamiang
+aceh tengah
+aceh tenggara
+aceh timur
+aceh utara

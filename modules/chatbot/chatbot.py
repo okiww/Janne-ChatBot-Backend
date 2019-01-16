@@ -1,10 +1,11 @@
 import re
 import random
-from bottle import response
+import datetime
 from json import dumps
+from bottle import response
+from modules.smartsearch import SmartSearch
 from common.dictionary.dictionary import reflections
 from common.dictionary.dictionary import psychobabble
-import datetime
 
 optionMessage = [
     {"id": 1, "message": "Cari Property Di Bandung", "sender": "BOT"},
@@ -22,6 +23,7 @@ introMessage = [
         "sender": "BOT"
     },
 ]
+msg_residue = None
 
 
 # reflect depends on reflections
@@ -80,6 +82,8 @@ def validate(message):
         return rv
 
 
-# getDataFromElasticSearch retrive data from elasticsearch
+# get_data_from_es retrieve data from elastic search
 def get_data_from_es(message):
+    ss = SmartSearch()
+    ss.get_message(message.lower())
     return message
