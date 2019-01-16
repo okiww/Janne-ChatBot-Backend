@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from bottle import Bottle, template
-from bottle import post, get, put, delete, response, request
+from bottle import Bottle, template, route
+from bottle import post, get, put, delete, response, request, run
 
 import os
 import sys
@@ -12,11 +12,11 @@ from modules.chatbot.chatbot import store
 home_app = Bottle()
 
 
-@home_app.route('/')
+@route('/')
 def index():
     return intro()
 
-@home_app.route('/post', 'POST')
+@route('/post', 'POST')
 def home():
     postdata = request.body.read()
     jsondata = json.loads(postdata)
@@ -25,8 +25,8 @@ def home():
     typeMessage = jsondata.get('type')
     return store(message, typeMessage)
 
-@home_app.route('/hello/<name>')
-def index(name):
-    return template('<b>Hello {{name}}</b>!', name=name)
-
+if os.environ.get('APP_LOCATION') == 'heroku':
+    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+else:
+    run(host='localhost', port=8080, debug=True)
 
