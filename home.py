@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
+import os
+import json
 import bottle
 from bottle import Bottle, route
 from bottle import response, request, run
-
-import os
-import json
 from modules.chatbot.chatbot import intro
 from modules.chatbot.chatbot import store
 
