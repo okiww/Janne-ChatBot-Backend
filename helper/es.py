@@ -231,6 +231,18 @@ class ElasticSearchHelper(object):
             if 'sublocality1' in location_object and location_object['sublocality1'] is not None:
                 must_filtered.append({"match_phrase": {"location.sublocality1": location_object.get('sublocality1')}})
 
+        if 'min_price' in kwargs and 'max_price' in kwargs:
+            if kwargs['min_price'] and kwargs['max_price']:
+                must_filtered.append(
+                    {
+                        "range": {
+                            "attributes.price": {
+                                "gte": kwargs.get('min_price'), "lte": kwargs.get('max_price'), "boost": 2.0
+                            }
+                        }
+                    }
+                )
+
         if 'property_type' in kwargs and kwargs['property_type'] != -1:
             must_filter.append({"term": {"propertyType": kwargs.get('property_type')}})
 
@@ -251,10 +263,15 @@ class ElasticSearchHelper(object):
                 "bool": {
                     "must": must_filter
                 }
+            },
+            "sort": {
+                "time.activated": {
+                    "order": "desc"
+                }
             }
         }
 
-        print(json.dumps(query_body))
+        print("[DEBUG] Query : {}".format(json.dumps(query_body)))
         try:
             hits, hits_len = self.search_by_query(_INDEX_PROPERTY, _TYPE_PROPERTY, size, query_body)
             if hits_len == 0:

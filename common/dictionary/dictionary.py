@@ -40,6 +40,18 @@ psychobabble = [
     [r'(.*) (tanah|Tanah) (.*)',
      ["tanah {1}?"]],
 
+    [r'(100 - 500jt)',
+     ["100 - 500jt"]],
+
+    [r'(500 - 750jt)',
+     ["500 - 750jt"]],
+
+    [r'(750 - 1mily)',
+     ["750 - 1mily"]],
+
+    [r'(1mily - 5mily)',
+     ["1mily - 5mily"]],
+
     # [r'I need (.*)',
     #  ["Why do you need {0}?",
     #   "Would it really help you to get {0}?",

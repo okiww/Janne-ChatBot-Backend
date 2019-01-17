@@ -21,6 +21,14 @@ class LocationParser(Parser):
         self._ignore_location = None
 
     def parse_locations_in_residue(self):
+        # remove keyword 'cari'
+        for _key in ['cari', 'mencari', 'carikan']:
+            self.remove_words_from_residue(_key)
+
+        # change symbol '?' to ''
+        if '?' in self.residue:
+            self.residue = self.residue.replace('?', '')
+
         if any(s in self.residue for s in self.list_special_city()):
             if self.residue:
                 self.set_city_location_object()
