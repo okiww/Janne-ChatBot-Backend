@@ -29,7 +29,6 @@ class TextSearchParser(Parser):
         self.residue = LocationParser(helper, self.residue).parse_locations_in_residue()
         self.residue = PropertyTypeParser(helper, self.residue).parse_property_type_in_residue()
         self.residue = ListingTypeParser(self.residue).parse_listing_type_in_residue()
-        print("residue : {}".format(self.residue))
         PriceParser(self.residue).parser_price()
 
-        print(self.parser)
+        return self.parser

@@ -1,9 +1,14 @@
+import json
+
 from elasticsearch import TransportError
 
 
 _INDEX_SMARTSEARCH = 'smartsearch'
 _TYPE_LOCATION = 'location'
 _TYPE_KEYWORD = 'keyword'
+
+_INDEX_PROPERTY = 'properties'
+_TYPE_PROPERTY = 'property'
 
 
 def simplify_es_result_for_helper(result):
@@ -204,3 +209,59 @@ class ElasticSearchHelper(object):
             return None
 
         return [simplify_es_result_for_helper(result) for result in hits]
+
+    def search_property(self, **kwargs):
+        result = []
+        must_filtered = list()
+        must_filter = list()
+
+        size = kwargs.get('size', 5)
+        if kwargs is None:
+            return None
+
+        if 'location_object' in kwargs:
+            location_object = kwargs.get('location_object')
+
+            if 'province' in location_object and location_object['province'] is not None:
+                must_filtered.append({"match_phrase": {"location.province": location_object.get('province')}})
+
+            if 'city' in location_object and location_object['city'] is not None:
+                must_filtered.append({"match_phrase": {"location.city": location_object.get('city')}})
+
+            if 'sublocality1' in location_object and location_object['sublocality1'] is not None:
+                must_filtered.append({"match_phrase": {"location.sublocality1": location_object.get('sublocality1')}})
+
+        if 'property_type' in kwargs:
+            must_filter.append({"term": {"propertyType": kwargs.get('property_type')}})
+
+        if 'listing_type' in kwargs:
+            must_filter.append({"term": {"listingType": kwargs.get('listing_type')}})
+
+        query_body = {
+            "query": {
+                "filtered": {
+                    "query": {
+                        "bool": {
+                            "must": must_filtered
+                        }
+                    }
+                }
+            },
+            "filter": {
+                "bool": {
+                    "must": must_filter
+                }
+            }
+        }
+
+        try:
+            hits, hits_len = self.search_by_query(_INDEX_PROPERTY, _TYPE_PROPERTY, size, query_body)
+            if hits_len == 0:
+                return None
+            else:
+                for hit in hits:
+                    result.append(hit['_source'])
+        except TransportError:
+            return None
+
+        return result
