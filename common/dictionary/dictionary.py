@@ -233,6 +233,6 @@ psychobabble = [
       "Thank you, that will be $150.  Have a good day!"]],
 
     [r'(.*)',
-     ["Mohon maaf, tolong masukan informasi yang lebih spesifik lagi."]
+     ["Mohon maaf, tolong masukan informasi yang lebih spesifik lagi"]
      ]
 ]
