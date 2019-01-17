@@ -211,7 +211,7 @@ class ElasticSearchHelper(object):
         return [simplify_es_result_for_helper(result) for result in hits]
 
     def search_property(self, **kwargs):
-        result = []
+        result = list()
         must_filtered = list()
         must_filter = list()
 
@@ -231,10 +231,10 @@ class ElasticSearchHelper(object):
             if 'sublocality1' in location_object and location_object['sublocality1'] is not None:
                 must_filtered.append({"match_phrase": {"location.sublocality1": location_object.get('sublocality1')}})
 
-        if 'property_type' in kwargs:
+        if 'property_type' in kwargs and kwargs['property_type'] != -1:
             must_filter.append({"term": {"propertyType": kwargs.get('property_type')}})
 
-        if 'listing_type' in kwargs:
+        if 'listing_type' in kwargs and kwargs['listing_type'] != -1:
             must_filter.append({"term": {"listingType": kwargs.get('listing_type')}})
 
         query_body = {
@@ -254,14 +254,14 @@ class ElasticSearchHelper(object):
             }
         }
 
+        print(json.dumps(query_body))
         try:
             hits, hits_len = self.search_by_query(_INDEX_PROPERTY, _TYPE_PROPERTY, size, query_body)
             if hits_len == 0:
-                return None
+                return list()
             else:
                 for hit in hits:
                     result.append(hit['_source'])
         except TransportError:
             return None
-
         return result
