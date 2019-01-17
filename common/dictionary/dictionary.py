@@ -52,6 +52,12 @@ psychobabble = [
     [r'(1mily - 5mily)',
      ["1mily - 5mily"]],
 
+    [r'(kamu siapa|Kamu siapa) (.*)',
+     ["Saya Nico, asisten anda"]],
+
+    [r'(.*) (kabar)',
+     ["Baik, ada yang ditanyakan lagi ?"]],
+
     # [r'I need (.*)',
     #  ["Why do you need {0}?",
     #   "Would it really help you to get {0}?",

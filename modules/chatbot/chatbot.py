@@ -8,6 +8,9 @@ from common.dictionary.dictionary import reflections
 from common.dictionary.dictionary import psychobabble
 
 defaultResponse = "Mohon maaf, tolong masukan informasi yang lebih spesifik lagi"
+defaultMessage_1 = "Saya Nico, asisten anda"
+defaultMessage_2 = "Baik, ada yang ditanyakan lagi ?"
+
 defaultOptionPrice = [
     {"id": 1, "message": "100 - 500jt"},
     {"id": 2, "message": "500 - 750jt"},
@@ -63,6 +66,7 @@ def intro():
 def store(message, type_message):
     while True:
         analyze_message = analyze(message)
+        print(analyze_message)
         if type_message == "option":
             # get data from elasticsearch
             validate_message = [
@@ -70,7 +74,7 @@ def store(message, type_message):
                 {"type": "options", "data": defaultOptionPrice},
             ]
         else:
-            if analyze_message != defaultResponse:
+            if analyze_message != defaultResponse and analyze_message != defaultMessage_1 and analyze_message != defaultMessage_2:
                 validate_message = [
                     {"type": "listing", "data": get_data_from_es(analyze_message)},
                     {"type": "options", "data": defaultOptionPrice},
@@ -94,6 +98,7 @@ def validate(message):
     ]
 
     if message == defaultResponse:
+
         return options
     else:
         return rv
