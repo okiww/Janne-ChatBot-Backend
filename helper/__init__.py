@@ -8,5 +8,5 @@ class GeneralHelper(object):
         return random.choice(images)
 
     @staticmethod
-    def get_installment(price):
+    def get_mortgage(price):
         return round(price / 180)

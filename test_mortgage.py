@@ -12,5 +12,5 @@ if __name__ == '__main__':
     for price in prices:
         print("------------------------------------------------------------------------------------------------------")
         print("Harga: {}".format(price))
-        print("Cicilan: {}".format(gh.get_installment(price)))
+        print("Cicilan: {}".format(gh.get_mortgage(price)))
         print("------------------------------------------------------------------------------------------------------")
