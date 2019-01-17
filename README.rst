@@ -1,4 +1,4 @@
-Janne Chatbot Backend - HACKATON
+Janne Chatbot Backend - HACKATHON
 ================================
 
 this project will show you how to build basic API chatbot using `NLTK` and `python`.
