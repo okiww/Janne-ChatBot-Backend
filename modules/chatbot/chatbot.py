@@ -8,6 +8,12 @@ from common.dictionary.dictionary import reflections
 from common.dictionary.dictionary import psychobabble
 
 defaultResponse = "Mohon maaf, tolong masukan informasi yang lebih spesifik lagi"
+defaultOptionPrice = [
+    {"id": 1, "message": "100 - 500jt"},
+    {"id": 2, "message": "500 - 750jt"},
+    {"id": 3, "message": "750 - 1mily"},
+    {"id": 4, "message": "1mily - 5mily"},
+]
 optionMessage = [
     {"id": 1, "message": "Cari Property Di Bandung", "sender": "BOT"},
     {"id": 2, "message": "Saya sedang cari rumah", "sender": "BOT"},
@@ -59,10 +65,16 @@ def store(message, type_message):
         analyze_message = analyze(message)
         if type_message == "option":
             # get data from elasticsearch
-            validate_message = {"data": get_data_from_es(analyze_message), "type": "listing" }
+            validate_message = [
+                {"type": "listing", "data": get_data_from_es(analyze_message)},
+                {"type": "options", "data": defaultOptionPrice},
+            ]
         else:
             if analyze_message != defaultResponse:
-                validate_message = {"data": get_data_from_es(analyze_message), "type": "listing" }
+                validate_message = [
+                    {"type": "listing", "data": get_data_from_es(analyze_message)},
+                    {"type": "options", "data": defaultOptionPrice},
+                ]
             else:
                 validate_message = validate(analyze_message)
 
