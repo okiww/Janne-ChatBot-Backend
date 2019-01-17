@@ -85,5 +85,4 @@ def validate(message):
 # get_data_from_es retrieve data from elastic search
 def get_data_from_es(message):
     ss = SmartSearch()
-    ss.parser(message.lower())
-    return message
+    return ss.parser(message.lower())
