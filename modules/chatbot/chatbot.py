@@ -59,10 +59,10 @@ def store(message, type_message):
         analyze_message = analyze(message)
         if type_message == "option":
             # get data from elasticsearch
-            validate_message = get_data_from_es(analyze_message)
+            validate_message = {"data": get_data_from_es(analyze_message), "type": "listing" }
         else:
             if analyze_message != defaultResponse:
-                validate_message = get_data_from_es(analyze_message)
+                validate_message = {"data": get_data_from_es(analyze_message), "type": "listing" }
             else:
                 validate_message = validate(analyze_message)
 
