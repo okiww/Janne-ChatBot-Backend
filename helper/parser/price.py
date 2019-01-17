@@ -78,7 +78,7 @@ class PriceParser(Parser):
             return value
         return None
 
-    def parse_options(self, item, result_group=1):
+    def parse_options(self, item):
         """Get matching regex and value from list of regex
         :return the value
         """

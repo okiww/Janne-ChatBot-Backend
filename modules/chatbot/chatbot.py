@@ -25,6 +25,7 @@ introMessage = [
     },
 ]
 msg_residue = None
+ss = SmartSearch()
 
 
 # reflect depends on reflections
@@ -60,10 +61,9 @@ def store(message, type_message):
             # get data from elasticsearch
             validate_message = get_data_from_es(analyze_message)
         else:
-            if(analyze_message != defaultResponse):
+            if analyze_message != defaultResponse:
                 validate_message = get_data_from_es(analyze_message)
             else:
-
                 validate_message = validate(analyze_message)
 
         data = {"data": validate_message, "status": 200, "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
@@ -89,5 +89,9 @@ def validate(message):
 
 # get_data_from_es retrieve data from elastic search
 def get_data_from_es(message):
-    ss = SmartSearch()
+    return ss.parser(message.lower())
+
+
+# get_data_by_price retrieve data from elastic search
+def get_data_by_price(message):
     return ss.parser(message.lower())
