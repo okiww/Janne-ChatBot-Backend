@@ -25,14 +25,15 @@ def enable_cors(fn):
 
     return _enable_cors
 
-home_app = Bottle()
-
+home_app = Bottle()   
 
 @route('/')
+@enable_cors
 def index():
     return intro()
 
 @route('/post', 'POST')
+@enable_cors
 def home():
     postdata = request.body.read()
     jsondata = json.loads(postdata)
