@@ -224,6 +224,8 @@ class ElasticSearchHelper(object):
 
             if 'province' in location_object and location_object['province'] is not None:
                 must_filtered.append({"match_phrase": {"location.province": location_object.get('province')}})
+            else:
+                return result
 
             if 'city' in location_object and location_object['city'] is not None:
                 must_filtered.append({"match_phrase": {"location.city": location_object.get('city')}})

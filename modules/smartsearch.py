@@ -1,4 +1,6 @@
 from elasticsearch import Elasticsearch
+
+from helper import GeneralHelper
 from helper.es import ElasticSearchHelper
 from helper.parser.general import TextSearchParser
 
@@ -23,9 +25,24 @@ class SmartSearch(object):
         return ts_parser.parse()
 
     def get_property(self, **kwargs):
+        result = list()
+
+        gh = GeneralHelper()
         es_helper = ElasticSearchHelper(self.es_connection)
         datas = es_helper.search_property(**kwargs)
-        return datas
+
+        for data in datas:
+            result.append({
+                'title': data['title'],
+                'price': data['attributes']['price'],
+                'mortgage': gh.get_mortgage(data['attributes']['price']),
+                'pictures': gh.random_image(),
+                'link': 'https://www.99.co/id',
+                'location': data['location'],
+                'attributes': data['attributes'],
+            })
+
+        return result
 
     def parser(self, message):
         if message == 'mohon maaf, tolong masukan informasi yang lebih spesifik lagi':
