@@ -251,6 +251,12 @@ class ElasticSearchHelper(object):
         if 'listing_type' in kwargs and kwargs['listing_type'] != -1:
             must_filter.append({"term": {"listingType": kwargs.get('listing_type')}})
 
+        # is removed = 0
+        must_filter.append({"term": {"isRemoved": 0}})
+
+        # status = 1
+        must_filter.append({"term": {"status": 1}})
+
         query_body = {
             "query": {
                 "filtered": {
