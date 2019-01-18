@@ -107,7 +107,7 @@ def store(message, type_message):
 
 # validate is for validation response
 def validate(message):
-    rv = {"id": 1, "message": message, "sender": "BOT"}
+    rv = {"id": 1, "message": message, "sender": "BOT", "type": "message"}
 
     options = [
         rv,
@@ -117,7 +117,8 @@ def validate(message):
     if message == defaultResponse or message == defaultNotFound:
         return options
     else:
-        return rv
+        opt = [rv]
+        return opt
 
 
 # get_data_from_es retrieve data from elastic search
