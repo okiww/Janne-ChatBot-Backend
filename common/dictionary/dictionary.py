@@ -58,6 +58,12 @@ psychobabble = [
     [r'(.*) (kabar)',
      ["Baik, ada yang ditanyakan lagi ?"]],
 
+    [r'(hello|Hello|HELLO)',
+     ["Hello, Saya Nico, asisten anda"]],
+    
+    [r'(hi|HI|Hi)',
+     ["Hi, Saya Nico, asisten anda"]],
+
     # [r'I need (.*)',
     #  ["Why do you need {0}?",
     #   "Would it really help you to get {0}?",

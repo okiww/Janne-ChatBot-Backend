@@ -11,6 +11,8 @@ defaultResponse = "Mohon maaf, tolong masukan informasi yang lebih spesifik lagi
 defaultMessage_1 = "Saya Nico, asisten anda"
 defaultMessage_2 = "Baik, ada yang ditanyakan lagi ?"
 defaultMessage_3 = "i'm feeling lucky!"
+defaultMessage_4 = "Hi, Saya Nico, asisten anda"
+defaultMessage_5 = "Hello, Saya Nico, asisten anda"
 defaultNotFound = "Data tidak ditemukan"
 
 defaultOptionPrice = [
@@ -84,7 +86,7 @@ def store(message, type_message):
                     {"type": "options", "data": defaultOptionPrice},
                 ]
         else:
-            if analyze_message != defaultResponse and analyze_message != defaultMessage_1 and analyze_message != defaultMessage_2:
+            if analyze_message != defaultResponse and analyze_message != defaultMessage_1 and analyze_message != defaultMessage_2 and analyze_message != defaultMessage_4 and analyze_message != defaultMessage_5:
                 es = get_data_from_es(analyze_message)
 
                 if not es:
