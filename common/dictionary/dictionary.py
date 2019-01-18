@@ -22,17 +22,17 @@ psychobabble = [
     [r'(.*) (Cari|cari|mencari|Mencari) (.*)',
      ["cari {2}?"]],
 
-    [r'(Dijual|dijual) (.*)',
+    [r'(Dijual|dijual|Jual|jual) (.*)',
      ["dijual {1}?"]],
 
-    [r'(.*) (Dijual|dijual) (.*)',
+    [r'(.*) (Dijual|dijual|Jual|jual) (.*)',
      ["dijual {1}?"]],
 
-    [r'(Disewa|disewa) (.*)',
-     ["disewa {2}?"]],
+    [r'(Disewa|disewa|Sewa|sewa) (.*)',
+     ["disewa {1}?"]],
 
-    [r'(.*) (Disewa|disewa) (.*)',
-     ["disewa {2}?"]],
+    [r'(.*) (Disewa|disewa|Sewa|sewa) (.*)',
+     ["disewa {1}?"]],
 
     [r'(tanah|Tanah) (.*)',
      ["tanah {1}?"]],

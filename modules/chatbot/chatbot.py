@@ -10,6 +10,7 @@ from common.dictionary.dictionary import psychobabble
 defaultResponse = "Mohon maaf, tolong masukan informasi yang lebih spesifik lagi"
 defaultMessage_1 = "Saya Nico, asisten anda"
 defaultMessage_2 = "Baik, ada yang ditanyakan lagi ?"
+defaultMessage_3 = "i'm feeling lucky!"
 
 defaultOptionPrice = [
     {"id": 1, "message": "100 - 500jt"},
@@ -18,8 +19,9 @@ defaultOptionPrice = [
     {"id": 4, "message": "1mily - 5mily"},
 ]
 optionMessage = [
-    {"id": 1, "message": "Cari Property Di Bandung", "sender": "BOT"},
-    {"id": 2, "message": "Saya sedang cari rumah", "sender": "BOT"},
+    {"id": 1, "message": "Cari property di Bandung", "sender": "BOT"},
+    {"id": 2, "message": "Sewa property di Bandung", "sender": "BOT"},
+    {"id": 2, "message": "Jual property di Bandung", "sender": "BOT"},
     {"id": 3, "message": "i'm feeling lucky!", "sender": "BOT"}
 ]
 introMessage = [
@@ -66,9 +68,11 @@ def intro():
 def store(message, type_message):
     while True:
         analyze_message = analyze(message)
-        print(analyze_message)
         if type_message == "option":
             # get data from elasticsearch
+            if message == defaultMessage_3: 
+                analyze_message = "Saya cari rumah di bandung"
+            
             validate_message = [
                 {"type": "listing", "data": get_data_from_es(analyze_message)},
                 {"type": "options", "data": defaultOptionPrice},
