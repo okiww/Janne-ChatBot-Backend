@@ -37,7 +37,7 @@ class SmartSearch(object):
                 'price': data['attributes']['price'],
                 'mortgage': gh.get_mortgage(data['attributes']['price']),
                 'pictures': gh.random_image(),
-                'link': 'https://www.99.co/id',
+                'link': gh.get_link_by_id_random(),
                 'location': data['location'],
                 'attributes': data['attributes'],
             })
