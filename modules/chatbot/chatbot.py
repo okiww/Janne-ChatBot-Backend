@@ -11,6 +11,7 @@ defaultResponse = "Mohon maaf, tolong masukan informasi yang lebih spesifik lagi
 defaultMessage_1 = "Saya Nico, asisten anda"
 defaultMessage_2 = "Baik, ada yang ditanyakan lagi ?"
 defaultMessage_3 = "i'm feeling lucky!"
+defaultNotFound = "Data tidak ditemukan"
 
 defaultOptionPrice = [
     {"id": 1, "message": "100 - 500jt"},
@@ -72,19 +73,31 @@ def store(message, type_message):
             # get data from elasticsearch
             if message == defaultMessage_3: 
                 analyze_message = "Saya cari rumah di bandung"
-            
-            validate_message = [
-                {"type": "listing", "data": get_data_from_es(analyze_message)},
-                {"type": "options", "data": defaultOptionPrice},
-            ]
-        else:
-            if analyze_message != defaultResponse and analyze_message != defaultMessage_1 and analyze_message != defaultMessage_2:
+
+            es = get_data_from_es(analyze_message)
+
+            if not es:
+                validate_message = validate(defaultNotFound)
+            else:
                 validate_message = [
-                    {"type": "listing", "data": get_data_from_es(analyze_message)},
+                    {"type": "listing", "data": es},
                     {"type": "options", "data": defaultOptionPrice},
                 ]
+        else:
+            if analyze_message != defaultResponse and analyze_message != defaultMessage_1 and analyze_message != defaultMessage_2:
+                es = get_data_from_es(analyze_message)
+
+                if not es:
+                    validate_message = validate(defaultNotFound)
+                else:
+                    validate_message = [
+                        {"type": "listing", "data": es},
+                        {"type": "options", "data": defaultOptionPrice},
+                    ]
             else:
                 validate_message = validate(analyze_message)
+
+            
 
         data = {"data": validate_message, "status": 200, "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
         response.content_type = 'application/json'
@@ -98,11 +111,10 @@ def validate(message):
 
     options = [
         rv,
-        {"id": 2, "data": optionMessage, "type": "options", "message": "What do you want ?", "sender": "BOT"}
+        {"id": 2, "data": optionMessage, "type": "options", "sender": "BOT"}
     ]
 
-    if message == defaultResponse:
-
+    if message == defaultResponse or message == defaultNotFound:
         return options
     else:
         return rv
